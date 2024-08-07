@@ -323,6 +323,12 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 3829969609196394464}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &1755338194 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8662095562984316082, guid: f48fbb1f20d760640b94b551ee54c74e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3829969609196394464}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3829969609196394464
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -334,6 +340,10 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1483325248}
+    - target: {fileID: 1483325253, guid: f48fbb1f20d760640b94b551ee54c74e, type: 3}
+      propertyPath: playerCollider
+      value: 
+      objectReference: {fileID: 1755338194}
     - target: {fileID: 4290134315497599295, guid: f48fbb1f20d760640b94b551ee54c74e,
         type: 3}
       propertyPath: m_RootOrder

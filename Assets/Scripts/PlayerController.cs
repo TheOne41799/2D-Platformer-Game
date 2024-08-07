@@ -1,18 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 
 public class PlayerController : MonoBehaviour
 {
-    public Animator animator;
+    [SerializeField] private Animator animator;
 
-    //private Collider2D playerCollider;
+    [SerializeField] private BoxCollider2D playerCollider;
+
+    private Vector2 playerColliderInitialSize;
+    private Vector2 playerColliderInitialOffset;
 
 
     private void Start()
     {
         //playerCollider = GetComponent<Collider2D>();
+
+        playerColliderInitialSize = playerCollider.size;
+        playerColliderInitialOffset = playerCollider.offset;
     }
 
 
@@ -40,10 +47,22 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
+            float offX = -0.0983f;
+            float offY = 0.6097f;
+
+            float sizeX = 0.6988f;
+            float sizeY = 1.3398f; 
+
+            playerCollider.size = new Vector2(sizeX, sizeY);
+            playerCollider.offset = new Vector2(offX, offY);
+
             animator.SetBool("IsCrouching", true);
         }
         else if(Input.GetKeyUp(KeyCode.LeftControl))
         {
+            playerCollider.size = playerColliderInitialSize;
+            playerCollider.offset = playerColliderInitialOffset;
+
             animator.SetBool("IsCrouching", false);
         }
 
@@ -58,3 +77,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
+
+
+
+
+
+
