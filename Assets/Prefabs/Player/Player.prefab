@@ -172,4 +172,4 @@ MonoBehaviour:
   playerCollider: {fileID: 8662095562984316082}
   playerMovementSpeed: 5
   playerRB: {fileID: 1483325251}
-  jumpForce: 2
+  jumpForce: 0.5
