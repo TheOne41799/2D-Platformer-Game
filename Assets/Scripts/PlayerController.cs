@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
     {
         if (vertical > 0 && isGrounded)
         {
-            playerRB.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            playerRB.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Force);
         }
     }
 
@@ -126,6 +126,7 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            animator.SetBool("IsGrounded", isGrounded);
         }
     }
 
@@ -135,6 +136,7 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
+            animator.SetBool("IsGrounded", isGrounded);
         }
     }
 }
