@@ -8,22 +8,25 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    [Header("Player Animator Component")]
     [SerializeField] private Animator animator;
 
+    [Header("Player Collider")]
     [SerializeField] private BoxCollider2D playerCollider;
     private Vector2 playerColliderInitialSize;
     private Vector2 playerColliderInitialOffset;
 
+    [Header("Player Movement")]
     [SerializeField] private float playerMovementSpeed = 4f;
 
+    [Header("Player Rigid Body and Jump")]
     [SerializeField] private Rigidbody2D playerRB;
     [SerializeField] private float jumpForce = 1f;
+    private bool isGrounded = false;
 
 
     private void Start()
     {
-        //playerCollider = GetComponent<Collider2D>();
-
         playerColliderInitialSize = playerCollider.size;
         playerColliderInitialOffset = playerCollider.offset;
     }
@@ -111,9 +114,27 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerJump(float vertical)
     {
-        if (vertical > 0)
+        if (vertical > 0 && isGrounded)
         {
-            playerRB.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Force);
+            playerRB.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+        }
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
+
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
         }
     }
 }
