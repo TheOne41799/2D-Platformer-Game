@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -25,12 +26,19 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = false;
 
     [SerializeField] private ScoreController scoreController;
+    [SerializeField] private int maxPlayerHealth = 3;
+    private int playerHealth;
+
+    [SerializeField] private HealthSystemController healthSystemController;
 
 
     private void Start()
     {
         playerColliderInitialSize = playerCollider.size;
         playerColliderInitialOffset = playerCollider.offset;
+
+        playerHealth = maxPlayerHealth;
+        healthSystemController.UpdateHearts(playerHealth);
     }
 
 
@@ -146,6 +154,42 @@ public class PlayerController : MonoBehaviour
     public void PickUpKey()
     {
         scoreController.IncrementScore(10);
+    }
+
+
+    public void TakeDamage(int dmgAmount)
+    {
+        playerHealth -= dmgAmount;
+        playerHealth = Mathf.Clamp(playerHealth, 0, maxPlayerHealth);
+
+        healthSystemController.UpdateHearts(playerHealth);
+
+        if(playerHealth == 0)
+        {
+            KillPlayer();
+        }
+    }
+
+
+    public void Heal(int healAmount)
+    {
+        playerHealth += healAmount;
+        playerHealth = Mathf.Clamp(playerHealth, 0, maxPlayerHealth);
+
+        healthSystemController.UpdateHearts(playerHealth);
+    }
+
+
+    private void KillPlayer()
+    {
+        ReloadLevel();
+    }
+
+
+    private void ReloadLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
 }
 
