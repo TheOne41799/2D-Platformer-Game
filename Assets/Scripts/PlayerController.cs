@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
     private int playerHealth;
 
     [SerializeField] private HealthSystemController healthSystemController;
+    [SerializeField] private GameOverController gameOverController;
+
+    private Camera mainCamera;
 
 
     private void Start()
@@ -39,6 +42,8 @@ public class PlayerController : MonoBehaviour
 
         playerHealth = maxPlayerHealth;
         healthSystemController.UpdateHearts(playerHealth);
+
+        mainCamera = Camera.main;
     }
 
 
@@ -164,7 +169,7 @@ public class PlayerController : MonoBehaviour
 
         healthSystemController.UpdateHearts(playerHealth);
 
-        if(playerHealth == 0)
+        if(playerHealth <= 0)
         {
             KillPlayer();
         }
@@ -182,15 +187,10 @@ public class PlayerController : MonoBehaviour
 
     private void KillPlayer()
     {
-        ReloadLevel();
-    }
-
-
-    private void ReloadLevel()
-    {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentSceneIndex);
-    }
+        mainCamera.transform.parent = null;
+        gameOverController.PlayerDeath();
+        Destroy(gameObject);        
+    }    
 }
 
 
