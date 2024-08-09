@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -146,6 +147,23 @@ public class PlayerController : MonoBehaviour
     public void PickUpKey()
     {
         scoreController.IncrementScore(10);
+    }
+
+
+    public void KillPlayer()
+    {
+        Debug.Log("Player killed");
+        //Destroy(gameObject);
+        //death animation
+        //reset level
+        ReloadLevel();
+    }
+
+
+    private void ReloadLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
 }
 
