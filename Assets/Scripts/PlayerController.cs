@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 1f;
     private bool isGrounded = false;
 
+    [SerializeField] private ScoreController scoreController;
+
 
     private void Start()
     {
@@ -138,6 +140,12 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
             animator.SetBool("IsGrounded", isGrounded);
         }
+    }
+
+
+    public void PickUpKey()
+    {
+        scoreController.IncrementScore(10);
     }
 }
 
