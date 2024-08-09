@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
     public Transform[] patrolPoints;
     public float speed = 2f;
     private int currentPointIndex = 0;
+    private int damage = 1;
 
 
     private void Update()
@@ -53,7 +54,7 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerController>())
         {
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            playerController.KillPlayer();
+            playerController.TakeDamage(damage);
         }
     }
 }

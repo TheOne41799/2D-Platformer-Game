@@ -26,12 +26,19 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = false;
 
     [SerializeField] private ScoreController scoreController;
+    [SerializeField] private int maxPlayerHealth = 3;
+    private int playerHealth;
+
+    [SerializeField] private HealthSystemController healthSystemController;
 
 
     private void Start()
     {
         playerColliderInitialSize = playerCollider.size;
         playerColliderInitialOffset = playerCollider.offset;
+
+        playerHealth = maxPlayerHealth;
+        healthSystemController.UpdateHearts(playerHealth);
     }
 
 
@@ -150,12 +157,31 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void KillPlayer()
+    public void TakeDamage(int dmgAmount)
     {
-        Debug.Log("Player killed");
-        //Destroy(gameObject);
-        //death animation
-        //reset level
+        playerHealth -= dmgAmount;
+        playerHealth = Mathf.Clamp(playerHealth, 0, maxPlayerHealth);
+
+        healthSystemController.UpdateHearts(playerHealth);
+
+        if(playerHealth == 0)
+        {
+            KillPlayer();
+        }
+    }
+
+
+    public void Heal(int healAmount)
+    {
+        playerHealth += healAmount;
+        playerHealth = Mathf.Clamp(playerHealth, 0, maxPlayerHealth);
+
+        healthSystemController.UpdateHearts(playerHealth);
+    }
+
+
+    private void KillPlayer()
+    {
         ReloadLevel();
     }
 
