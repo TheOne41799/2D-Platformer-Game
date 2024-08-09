@@ -8,11 +8,13 @@ using UnityEngine.UI;
 public class GameOverController : MonoBehaviour
 {
     [SerializeField] private Button restartButton;
+    [SerializeField] private Button lobbyButton;
 
 
     private void Awake()
     {
         restartButton.onClick.AddListener(ReloadLevel);
+        lobbyButton.onClick.AddListener(GotoLobbySceneMenu);
     }
 
 
@@ -26,6 +28,12 @@ public class GameOverController : MonoBehaviour
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
+    }
+
+
+    private void GotoLobbySceneMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
 
