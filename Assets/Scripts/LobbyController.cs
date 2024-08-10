@@ -17,6 +17,7 @@ public class LobbyController : MonoBehaviour
     [SerializeField] private Button level2Button;
     [SerializeField] private Button level3Button;
     [SerializeField] private Button level4Button;
+    [SerializeField] private Button level5Button;
 
     //[SerializeField] private Button[] levelChangeButtons;
 
@@ -34,6 +35,7 @@ public class LobbyController : MonoBehaviour
         level2Button.onClick.AddListener(() => ChangeLevel(2));
         level3Button.onClick.AddListener(() => ChangeLevel(3));
         level4Button.onClick.AddListener(() => ChangeLevel(4));
+        level5Button.onClick.AddListener(() => ChangeLevel(5));
 
         /*for (int i = 0; i < levelChangeButtons.Length; i++)
         {

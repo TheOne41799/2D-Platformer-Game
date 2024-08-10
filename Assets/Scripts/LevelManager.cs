@@ -17,7 +17,7 @@ public class LevelManager : MonoBehaviour
 
     readonly private int levelZero = 0;
     readonly private int levelOne = 1;
-    readonly private int totalNumberOfLevels = 4;
+    readonly private int totalNumberOfLevels = 5;
 
 
     private void Awake()
@@ -36,7 +36,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
 
         if(GetLevelStatus(levelOne) == LevelStatus.LOCKED)
         {
@@ -65,17 +65,24 @@ public class LevelManager : MonoBehaviour
 
         if(level < totalNumberOfLevels)
         {
-            if (GetLevelStatus(level + 1) == LevelStatus.LOCKED)
-            {
-                SetLevelStatus(level + 1, LevelStatus.UNLOCKED);
-            }
+            SetLevelStatus(level + 1, LevelStatus.UNLOCKED);
         }
         else
         {
             Debug.Log("All levels have been finished");
         }
+    }
 
+
+    public void LoadLobbyScene()
+    {
         SceneManager.LoadScene(levelZero);
+    }
+
+
+    public void ReloadLevel(int currentLevel)
+    {
+        SceneManager.LoadScene(currentLevel);
     }
 }
 
