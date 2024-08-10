@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class LevelOverController : MonoBehaviour
 {
@@ -8,7 +8,8 @@ public class LevelOverController : MonoBehaviour
     {
         if(collision.gameObject.GetComponent<PlayerController>())
         {
-            Debug.Log("Level Finished!");
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            LevelManager.Instance.MarkLevelCompleteAndUnlockNextLevel(currentSceneIndex);
         }
     }
 }

@@ -741,6 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854bc8ca763d148458344bb38356da86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverController: {fileID: 950498338}
 --- !u!4 &634414835 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1631062820275896076, guid: 4da09d8bac97a294b9533790a86dbec7,

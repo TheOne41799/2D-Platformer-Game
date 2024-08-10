@@ -52,7 +52,20 @@ public class LobbyController : MonoBehaviour
 
     private void ChangeLevel(int levelNumber)
     {
-        SceneManager.LoadScene(levelNumber);
+        LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(levelNumber);
+        
+        switch(levelStatus)
+        {
+            case LevelStatus.LOCKED:
+                Debug.Log("level: " + levelNumber + " is locked");
+                break;
+            case LevelStatus.UNLOCKED:
+                SceneManager.LoadScene(levelNumber);
+                break;
+            case LevelStatus.COMPLETED:
+                SceneManager.LoadScene(levelNumber);
+                break;
+        }        
     }
 
 
