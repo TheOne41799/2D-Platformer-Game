@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class GameOverController : MonoBehaviour
+public class LevelOverPopupController : MonoBehaviour
 {
     [SerializeField] private Button restartButton;
     [SerializeField] private Button lobbyButton;
@@ -14,11 +14,11 @@ public class GameOverController : MonoBehaviour
     private void Awake()
     {
         restartButton.onClick.AddListener(ReloadLevel);
-        lobbyButton.onClick.AddListener(GotoLobbySceneMenu);
+        lobbyButton.onClick.AddListener(GotoLobbySceneMenu);        
     }
 
 
-    public void PlayerDeath()
+    public void LevelCompleted()
     {
         gameObject.SetActive(true);
     }
@@ -36,6 +36,3 @@ public class GameOverController : MonoBehaviour
         LevelManager.Instance.LoadLobbyScene();
     }
 }
-
-
-

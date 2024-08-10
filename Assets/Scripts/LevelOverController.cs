@@ -1,14 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class LevelOverController : MonoBehaviour
 {
+    [SerializeField] private LevelOverPopupController levelOverPopupController;
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.GetComponent<PlayerController>())
         {
-            Debug.Log("Level Finished!");
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            LevelManager.Instance.MarkLevelCompleteAndUnlockNextLevel(currentSceneIndex);
+
+            levelOverPopupController.LevelCompleted();
         }
     }
 }

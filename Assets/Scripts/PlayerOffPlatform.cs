@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerOffPlatform : MonoBehaviour
 {
-    private int damageAmount = 3;
+    readonly private int damageAmount = 3;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
