@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class SoundManager : MonoBehaviour
 {
@@ -14,8 +15,13 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public SoundType[] sounds;
-    [SerializeField] AudioSource soundEffect;
+    [SerializeField] private AudioSource soundEffect;
+    [SerializeField] private AudioSource soundBackgroundMusic;
+
+    [SerializeField] private bool isMute = false;
+    [SerializeField][Range(0f, 1f)] private float volume = 1f;
+
+    public SoundType[] sounds;    
 
 
     private void Awake()
@@ -32,19 +38,53 @@ public class SoundManager : MonoBehaviour
     }
 
 
-    public void Player(Sounds sound)
+    private void Start()
     {
+        SetBackgroundMusicVolume(0.1f);
+        SetSoundSFXVolume(0.9f);        
+
+        PlayBackgroundMusic(Sounds.BACKGROUND_MUSIC);
+    }
+
+
+    public void PlayBackgroundMusic(Sounds sound)
+    {
+        if (isMute) return;
+
         AudioClip clip = GetSoundClip(sound);
 
-        if (clip != null) 
+        if (clip != null)
         {
+            soundBackgroundMusic.clip = clip;
+            soundBackgroundMusic.Play();
+        }
+        else
+        {
+            Debug.LogError("Clip not found for the sound type: " + sound);
+        }
+    }
 
+
+    public void Play(Sounds sound)
+    {
+        if (isMute) return;
+
+        AudioClip clip = GetSoundClip(sound);
+
+        if (clip != null)
+        {
+            soundEffect.PlayOneShot(clip);
+        }
+        else
+        {
+            Debug.LogError("Clip not found for the sound type: " + sound);
+        }
     }
 
 
     private AudioClip GetSoundClip(Sounds sound)
     {
-        SoundType item = Array.Find(sounds, item => item.soundType == sound);
+        SoundType item = Array.Find(sounds, i => i.soundType == sound);
 
         if (item != null)
         {
@@ -54,6 +94,26 @@ public class SoundManager : MonoBehaviour
         {
             return null; 
         }
+    }
+
+
+    public void Mute(bool status)
+    {
+        isMute = status;
+    }
+
+
+    public void SetBackgroundMusicVolume(float vol)
+    {
+        volume = vol;
+        soundBackgroundMusic.volume = volume;
+    }
+
+
+    public void SetSoundSFXVolume(float vol)
+    {
+        volume = vol;
+        soundEffect.volume = volume;
     }
 }
 
@@ -69,7 +129,14 @@ public class SoundType
 public enum Sounds
 {
     BUTTON_CLICK,
+    BUTTON_CLICK_LEVEL_LOCKED,
+    PICK_UP,
     PLAYER_MOVE,
+    PLAYER_HIT,
     PLAYER_DEATH,
-    ENEMY_DEATH
+    ENEMY_DEATH,
+    BACKGROUND_MUSIC,
+    LEVEL_COMPLETE,
+    PLAYER_JUMP,
+    PLAYER_LAND
 }

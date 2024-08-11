@@ -11,6 +11,8 @@ public class HealthPickUpController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>())
         {
+            SoundManager.Instance.Play(Sounds.PICK_UP);
+
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             playerController.Heal(healAmount);
             Destroy(gameObject);

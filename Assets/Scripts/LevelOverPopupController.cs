@@ -26,6 +26,8 @@ public class LevelOverPopupController : MonoBehaviour
 
     private void ReloadLevel()
     {
+        SoundManager.Instance.Play(Sounds.BUTTON_CLICK);
+
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         LevelManager.Instance.ReloadLevel(currentSceneIndex);
     }
@@ -33,6 +35,8 @@ public class LevelOverPopupController : MonoBehaviour
 
     private void GotoLobbySceneMenu()
     {
+        SoundManager.Instance.Play(Sounds.BUTTON_CLICK);
+
         LevelManager.Instance.LoadLobbyScene();
     }
 }

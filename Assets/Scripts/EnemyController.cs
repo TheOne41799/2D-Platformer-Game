@@ -53,6 +53,8 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>())
         {
+            SoundManager.Instance.Play(Sounds.PLAYER_HIT);
+
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             playerController.TakeDamage(damage);
         }

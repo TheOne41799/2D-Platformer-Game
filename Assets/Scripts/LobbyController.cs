@@ -46,6 +46,8 @@ public class LobbyController : MonoBehaviour
 
     private void PlayGame()
     {
+        SoundManager.Instance.Play(Sounds.BUTTON_CLICK);
+
         playButton.gameObject.SetActive(false);
         quitButton.gameObject.SetActive(false);
         levelSelectionPopupMenu.gameObject.SetActive(true);
@@ -53,18 +55,21 @@ public class LobbyController : MonoBehaviour
 
 
     private void ChangeLevel(int levelNumber)
-    {
+    {     
         LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(levelNumber);
         
         switch(levelStatus)
         {
             case LevelStatus.LOCKED:
+                SoundManager.Instance.Play(Sounds.BUTTON_CLICK_LEVEL_LOCKED);
                 Debug.Log("level: " + levelNumber + " is locked");
                 break;
             case LevelStatus.UNLOCKED:
+                SoundManager.Instance.Play(Sounds.BUTTON_CLICK);
                 SceneManager.LoadScene(levelNumber);
                 break;
             case LevelStatus.COMPLETED:
+                SoundManager.Instance.Play(Sounds.BUTTON_CLICK);
                 SceneManager.LoadScene(levelNumber);
                 break;
         }        
@@ -73,6 +78,7 @@ public class LobbyController : MonoBehaviour
 
     public void Quit()
     {
+        SoundManager.Instance.Play(Sounds.BUTTON_CLICK);
         Application.Quit();
 
 #if UNITY_EDITOR
