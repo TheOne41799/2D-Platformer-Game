@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float footStepInterval = 0.5f;
     private float lastFootStepTime;
 
+    [SerializeField] private ParticleSystemController psController;
+
 
     private void Start()
     {
@@ -51,6 +53,12 @@ public class PlayerController : MonoBehaviour
         mainCamera = Camera.main;
 
         SpawnPosition();
+
+
+        if(psController == null)
+        {
+            Debug.LogError("ParticleController not found in the scene!");
+        }
     }
 
 
@@ -206,9 +214,22 @@ public class PlayerController : MonoBehaviour
     {
         SoundManager.Instance.Play(Sounds.PLAYER_DEATH);
 
+        PlayerDeathParticleSystemEffect();
+
         mainCamera.transform.parent = null;
         gameOverController.PlayerDeath();
         Destroy(gameObject);        
+    }
+
+
+    public void PlayerDeathParticleSystemEffect()
+    {
+        Vector3 deathPosition = transform.position;
+
+        if (psController != null)
+        {
+            psController.PlayParticleSystemEffect(ParticleSystemType.PLAYER_DEATH, deathPosition);
+        }
     }
 
 

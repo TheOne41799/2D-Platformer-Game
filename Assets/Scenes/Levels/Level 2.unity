@@ -374,7 +374,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1929305982}
-  m_RootOrder: 17
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &321706145
 BoxCollider2D:
@@ -2794,6 +2794,52 @@ Transform:
   m_Father: {fileID: 427733811}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1320716449
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1320716451}
+  - component: {fileID: 1320716450}
+  m_Layer: 0
+  m_Name: ParticleSystemController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1320716450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320716449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3e16dbabfd204844a7d1263a19e69f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerDeathParticleSystem: {fileID: 608890524637519120, guid: cf6d6df2f8b5d5f468857dc083a19c11,
+    type: 3}
+--- !u!4 &1320716451
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320716449}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1340299954
 GameObject:
   m_ObjectHideFlags: 0
@@ -3724,12 +3770,12 @@ Transform:
   - {fileID: 1256195511}
   - {fileID: 634414835}
   - {fileID: 1403468558}
+  - {fileID: 321706144}
   - {fileID: 132200423}
   - {fileID: 1850386156}
   - {fileID: 185786330}
   - {fileID: 1804969331}
   - {fileID: 1608256316}
-  - {fileID: 321706144}
   - {fileID: 1852399570}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -4865,6 +4911,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1483325253, guid: f48fbb1f20d760640b94b551ee54c74e, type: 3}
+      propertyPath: psController
+      value: 
+      objectReference: {fileID: 1320716450}
     - target: {fileID: 1483325253, guid: f48fbb1f20d760640b94b551ee54c74e, type: 3}
       propertyPath: spawnPosition
       value: 
