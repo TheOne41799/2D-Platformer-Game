@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Tilemaps;
+//using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,6 +34,13 @@ public class PlayerController : MonoBehaviour
 
     private Camera mainCamera;
 
+    [SerializeField] private Transform spawnPosition;
+
+    [SerializeField] private float footStepInterval = 0.5f;
+    private float lastFootStepTime;
+
+    [SerializeField] private ParticleSystemController psController;
+
 
     private void Start()
     {
@@ -44,6 +51,14 @@ public class PlayerController : MonoBehaviour
         healthSystemController.UpdateHearts(playerHealth);
 
         mainCamera = Camera.main;
+
+        SpawnPosition();
+
+
+        if(psController == null)
+        {
+            Debug.LogError("ParticleController not found in the scene!");
+        }
     }
 
 
@@ -121,6 +136,12 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerHorizontalMovement(float horizontal)
     {
+        if (Time.time >= lastFootStepTime + footStepInterval && Mathf.Abs(horizontal) > 0 && isGrounded)
+        {
+            SoundManager.Instance.Play(Sounds.PLAYER_MOVE);
+            lastFootStepTime = Time.time;
+        }
+
         Vector3 position = transform.position;
         position.x += horizontal * playerMovementSpeed * Time.deltaTime;
         transform.position = position;
@@ -131,6 +152,8 @@ public class PlayerController : MonoBehaviour
     {
         if (vertical > 0 && isGrounded)
         {
+            SoundManager.Instance.Play(Sounds.PLAYER_JUMP);
+
             playerRB.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Force);
         }
     }
@@ -140,6 +163,8 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
+            SoundManager.Instance.Play(Sounds.PLAYER_LAND);
+
             isGrounded = true;
             animator.SetBool("IsGrounded", isGrounded);
         }
@@ -187,10 +212,38 @@ public class PlayerController : MonoBehaviour
 
     private void KillPlayer()
     {
+        SoundManager.Instance.Play(Sounds.PLAYER_DEATH);
+
+        PlayerDeathParticleSystemEffect();
+
         mainCamera.transform.parent = null;
         gameOverController.PlayerDeath();
         Destroy(gameObject);        
-    }    
+    }
+
+
+    public void PlayerDeathParticleSystemEffect()
+    {
+        Vector3 deathPosition = transform.position;
+
+        if (psController != null)
+        {
+            psController.PlayParticleSystemEffect(ParticleSystemType.PLAYER_DEATH, deathPosition);
+        }
+    }
+
+
+    public void DestroyPlayerOnLevelFinish()
+    {
+        mainCamera.transform.parent = null;
+        Destroy(gameObject);
+    }
+
+
+    public void SpawnPosition()
+    {
+        transform.position = spawnPosition.position;
+    }
 }
 
 
